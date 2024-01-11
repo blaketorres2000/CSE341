@@ -1,0 +1,16 @@
+{
+    "name": "cse341-winter24",
+    "version": "1.0.0",
+    "description": "CSE 341 Winter 2021",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Blake Kimball Torres",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}
