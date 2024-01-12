@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 
 const contactController = {};
 
+/******************************************
+ * Function to get clients from the database
+ ******************************************/
 contactController.listContacts = async function (req, res) {
     try {
         const param = req.params.param;
@@ -33,6 +36,9 @@ contactController.listContacts = async function (req, res) {
     }
 };
 
+/******************************************
+ * Function to add a new client to the database
+ ******************************************/
 contactController.addContact = async function (req, res) {
     try {
         const { firstName, lastName, email, favoriteColor, birthday } = req.body;
