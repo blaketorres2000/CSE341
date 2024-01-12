@@ -1,22 +1,29 @@
 const Contact = require('../models/contactModel');
-const mongoDB = require('../db/mongodb');
+const mongoose = require('mongoose');
 
 const contactController = {};
 
 contactController.listContacts = async function (req, res) {
     try {
-        // Check if a specific contact ID is provided in the request parameters
-        const contactId = req.params.id;
+        const param = req.params.param;
 
-        if (contactId) {
-            // Retrieve a specific contact by ID
-            const contact = await Contact.findById(contactId);
-            if (!contact) {
-                return res.status(404).json({ error: 'Contact not found' });
+        if (param) {
+            const isObjectId = mongoose.Types.ObjectId.isValid(param);
+
+            if (isObjectId) {
+                // If param is a valid ObjectId, search by _id
+                const contact = await Contact.findById(param);
+                if (!contact) {
+                    return res.status(404).json({ error: 'Contact not found' });
+                }
+                return res.json(contact);
+            } else {
+                // If param is not a valid ObjectId, search by favoriteColor
+                const contacts = await Contact.find({ favoriteColor: param });
+                return res.json(contacts);
             }
-            return res.json(contact);
         } else {
-            // If no specific ID is provided, retrieve all contacts
+            // If no specific ID or favoriteColor is provided, retrieve all contacts
             const contacts = await Contact.find({});
             return res.json(contacts);
         }
@@ -30,7 +37,6 @@ contactController.addContact = async function (req, res) {
     try {
         const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
-        // Create a new contact using the Contact model
         const newContact = new Contact({
             firstName,
             lastName,
@@ -39,7 +45,6 @@ contactController.addContact = async function (req, res) {
             birthday
         });
 
-        // Save the contact to the database
         const savedContact = await newContact.save();
 
         res.status(201).json(savedContact);
@@ -48,4 +53,5 @@ contactController.addContact = async function (req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
 module.exports = contactController;
