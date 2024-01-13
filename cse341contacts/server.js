@@ -4,7 +4,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const contactRoutes = require("./routes/contactRoutes.js");
+const contactRoutes = require("./routes/index.js");
 const mongoDB = require("./db/mongodb.js");
 
 // Middleware to parse JSON requests
