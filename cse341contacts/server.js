@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 /******************************************
  * Routes
  *****************************************/
-app.use("/contacts", contactRoutes);
+app.use("/", contactRoutes);
 
 /******************************************
  * Server Setup

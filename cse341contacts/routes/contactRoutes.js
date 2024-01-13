@@ -3,9 +3,12 @@ const router = express.Router();
 const contactController = require('../controllers/contactController');
 
 // GET contacts by id or favoriteColor
-router.get('/:param?', contactController.listContacts);
+router.get('/', contactController.homePage);
+
+// GET contacts by id or favoriteColor
+router.get('/contacts/:param?', contactController.listContacts);
 
 // POST a new contact
-router.post('/', contactController.addContact);
+router.post('/contacts', contactController.addContact);
 
 module.exports = router;
