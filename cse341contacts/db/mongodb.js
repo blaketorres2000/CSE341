@@ -10,10 +10,7 @@ const mongo = {};
 const uri = 'mongodb+srv://blaketorres2000:kimberly181986@cluster0.p14acrq.mongodb.net/cse341?retryWrites=true&w=majority';
 
 // Connection promise using the URI and required options
-const connectionPromise = mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const connectionPromise = mongoose.connect(uri);
 
 // Export the connection promise and the connectToMongoDB function
 mongo.connectionPromise = connectionPromise;
