@@ -11,4 +11,10 @@ router.get('/contacts/:param?', contactController.listContacts);
 // POST a new contact
 router.post('/contacts', contactController.addContact);
 
+// PUT update contact by id
+router.put('/contacts/:id', contactController.updateContact);
+
+// DELETE contact by id
+router.delete('/contacts/:id', contactController.deleteContact);
+
 module.exports = router;
