@@ -17,4 +17,7 @@ router.put('/contacts/:id', contactController.updateContact);
 // DELETE contact by id
 router.delete('/contacts/:id', contactController.deleteContact);
 
+// Swagger UI
+router.use('/', require('./swagger'));
+
 module.exports = router;
