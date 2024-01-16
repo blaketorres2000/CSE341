@@ -157,30 +157,30 @@
             "description": "Internal Server Error - Something went wrong on the server"
           }
         }
-      }
-    },
-    "delete": {
-      "description": "",
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "responses": {
-        "201": {
-          "description": "Created"
-        },
-        "400": {
-          "description": "Bad Request"
-        },
-        "404": {
-          "description": "Not Found"
-        },
-        "500": {
-          "description": "Internal Server Error"
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       }
     }
