@@ -7,7 +7,9 @@
   },
   "host": "cse341-9n6f.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -98,61 +100,51 @@
     },
     "/contacts/{id}": {
       "put": {
-        "description": "Update contact by ID",
+        "description": "",
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "description": "ID of the contact to update",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
             "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "in": "body",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstName": {
-                    "type": "string"
-                  },
-                  "lastName": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "favoriteColor": {
-                    "type": "string"
-                  },
-                  "birthday": {
-                    "type": "string",
-                    "format": "date"
-                  }
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "favoriteColor": {
+                  "example": "any"
+                },
+                "birthday": {
+                  "example": "any"
                 }
               }
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Contact updated successfully"
+            "description": "OK"
           },
           "400": {
-            "description": "Bad Request - Invalid input or missing required fields"
+            "description": "Bad Request"
           },
-
           "404": {
-            "description": "Contact not found"
+            "description": "Not Found"
           },
           "500": {
-            "description": "Internal Server Error - Something went wrong on the server"
+            "description": "Internal Server Error"
           }
         }
       },
@@ -178,6 +170,16 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

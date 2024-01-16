@@ -78,15 +78,23 @@ contactController.addContact = async function (req, res) {
  * Function to update a contact by id
  ******************************************/
 contactController.updateContact = async function (req, res) {
-  //swagger.tags = ['Contacts']
   try {
     const contactId = req.params.id;
-    const updateFields = req.body;
+    const { firstName, lastName, email, favoriteColor, birthday } = req.body;
 
     // Ensure that the contactId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(contactId)) {
       return res.status(400).json({ error: "Invalid contact ID" });
     }
+
+    // Create an object with the fields to be updated
+    const updateFields = {
+      firstName,
+      lastName,
+      email,
+      favoriteColor: favoriteColor ? favoriteColor.toLowerCase() : undefined,
+      birthday,
+    };
 
     const updatedContact = await Contact.findByIdAndUpdate(
       contactId,
@@ -98,7 +106,7 @@ contactController.updateContact = async function (req, res) {
       return res.status(404).json({ error: "Contact not found" });
     }
 
-    res.status(201).json(updatedContact);
+    res.status(200).json(updatedContact);
   } catch (err) {
     console.error("Error updating contact:", err);
     res.status(500).json({ error: "Internal Server Error" });
