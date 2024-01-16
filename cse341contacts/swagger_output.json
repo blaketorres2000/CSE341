@@ -111,6 +111,7 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -123,13 +124,15 @@
                     "type": "string"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "email"
                   },
                   "favoriteColor": {
                     "type": "string"
                   },
                   "birthday": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date"
                   }
                 }
               }
