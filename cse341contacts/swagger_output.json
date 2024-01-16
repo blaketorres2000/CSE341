@@ -7,9 +7,7 @@
   },
   "host": "cse341-9n6f.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/": {
       "get": {
@@ -132,16 +130,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }
