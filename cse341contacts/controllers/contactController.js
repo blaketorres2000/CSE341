@@ -67,7 +67,7 @@ contactController.addContact = async function (req, res) {
 
     res
       .status(201)
-      .json(savedContact, { message: "Contact added successfully" });
+      .json(savedContact);
   } catch (err) {
     console.error("Error adding contact:", err);
     res.status(500).json({ error: "Internal Server Error" });
