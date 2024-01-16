@@ -105,41 +105,27 @@
             "name": "id",
             "required": true,
             "description": "ID of the contact to update",
+            "type": "string",
             "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": [
-          {
-            "description": "Updated contact data",
-            "required": true,
-            "content": [
-              {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "firstName": {
-                        "example": "any"
-                      },
-                      "lastName": {
-                        "example": "any"
-                      },
-                      "email": {
-                        "example": "any"
-                      },
-                      "favoriteColor": {
-                        "example": "any"
-                      },
-                      "birthday": {
-                        "example": "any"
-                      }
-                    }
-                  }
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "favoriteColor": {
+                  "example": "any"
+                },
+                "birthday": {
+                  "example": "any"
                 }
               }
-            ]
+            }
           }
         ],
         "responses": {
