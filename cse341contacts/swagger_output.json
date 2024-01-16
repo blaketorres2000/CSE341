@@ -7,9 +7,7 @@
   },
   "host": "cse341-9n6f.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/": {
       "get": {
@@ -103,50 +101,86 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
             "in": "path",
+            "name": "id",
             "required": true,
-            "type": "string"
+            "description": "ID of the contact to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": [
+          {
+            "description": "Updated contact data",
+            "required": true,
+            "content": [
+              {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": {
+                        "example": "any"
+                      },
+                      "lastName": {
+                        "example": "any"
+                      },
+                      "email": {
+                        "example": "any"
+                      },
+                      "favoriteColor": {
+                        "example": "any"
+                      },
+                      "birthday": {
+                        "example": "any"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "Contact updated successfully"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - Invalid input or missing required fields"
           },
+
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error - Something went wrong on the server"
           }
         }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+      }
+    },
+    "delete": {
+      "description": "",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "500": {
+          "description": "Internal Server Error"
         }
       }
     }
