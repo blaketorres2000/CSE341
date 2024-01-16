@@ -112,6 +112,7 @@
         ],
         "requestBody": {
           "required": true,
+          "in": "body",
           "content": {
             "application/json": {
               "schema": {
