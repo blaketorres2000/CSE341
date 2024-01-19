@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 // Set Mongoose promise to global promise library
@@ -7,7 +9,7 @@ mongoose.Promise = global.Promise;
 const mongo = {};
 
 // MongoDB connection URI
-const uri = 'mongodb+srv://blaketorres2000:kimberly181986@cluster0.p14acrq.mongodb.net/cse341?retryWrites=true&w=majority';
+const uri = process.env.MONGODB_URI;
 
 // Connection promise using the URI and required options
 const connectionPromise = mongoose.connect(uri);

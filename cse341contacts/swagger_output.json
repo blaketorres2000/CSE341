@@ -5,10 +5,20 @@
     "description": "Node.js assignments for CSE341",
     "version": "1.0.0"
   },
-  "host": "cse341-9n6f.onrender.com",
+  "host": "https://github.com/blaketorres2000/CSE341",
   "basePath": "/",
-  "schemes": [
-    "https"
+  "schemes": ["https"],
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "z-key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": ["3db70934-345e-409f-96cb-070e94950ffa"]
+    }
   ],
   "paths": {
     "/": {
@@ -23,7 +33,14 @@
     },
     "/contacts": {
       "get": {
-        "description": "",
+        "description": "Get all contacts.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "parameters": [
+          {
+            "name": "apiKey",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -37,8 +54,13 @@
         }
       },
       "post": {
-        "description": "",
+        "description": "Add a new contact.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
         "parameters": [
+          {
+            "name": "apiKey",
+            "in": "headers",
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -76,8 +98,13 @@
     },
     "/contacts/{param?}": {
       "get": {
-        "description": "",
+        "description": "Get a specific contact using their id or favorite color as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
         "parameters": [
+          {
+            "name": "apiKey",
+            "in": "headers",
+            "type": "string"
+          },
           {
             "name": "param?",
             "in": "path",
@@ -100,12 +127,17 @@
     },
     "/contacts/{id}": {
       "put": {
-        "description": "",
+        "description": "Update a contact using their id as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "apiKey",
+            "in": "header",
             "type": "string"
           },
           {
@@ -149,8 +181,13 @@
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete a contact using their id as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
         "parameters": [
+          {
+            "name": "apiKey",
+            "in": "headers",
+            "type": "string"
+          },
           {
             "name": "id",
             "in": "path",
