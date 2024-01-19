@@ -130,14 +130,14 @@
         "description": "Update a contact using their id as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
+            "name": "apiKey",
+            "in": "header",
             "type": "string"
           },
           {
-            "name": "apiKey",
-            "in": "header",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
