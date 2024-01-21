@@ -1,3 +1,7 @@
+###################################################
+// test with localhost
+###################################################
+
 ### GET all contacts
 GET http://localhost:3500/contacts
 
@@ -37,3 +41,47 @@ Content-Type: application/json
 ### DELETE contact by ID
 ### Add contact ID to the end of the URL
 DELETE http://localhost:3500/contacts/"id number"
+
+###################################################
+// test with render
+###################################################
+
+### GET all contacts
+GET https://cse341-9n6f.onrender.com/contacts
+
+### GET contact by ID. 
+### Add contact ID to the end of the URL
+GET https://cse341-9n6f.onrender.com/contacts/"id number"
+
+### GET contacts by favoriteColor
+### Add favoriteColor to the end of the URL
+GET https://cse341-9n6f.onrender.com/contacts/"favoriteColor"
+
+### POST create a new contact
+POST https://cse341-9n6f.onrender.com/contacts
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1990-01-01"
+}
+
+### PUT update contact by ID
+### Add contact ID to the end of the URL
+PUT https://cse341-9n6f.onrender.com/contacts/"id number"
+Content-Type: application/json
+
+{
+  "firstName": "UpdatedFirstName",
+  "lastName": "UpdatedLastName",
+  "email": "updated.email@example.com",
+  "favoriteColor": "green",
+  "birthday": "1995-02-15"
+}
+
+### DELETE contact by ID
+### Add contact ID to the end of the URL
+DELETE https://cse341-9n6f.onrender.com/contacts/"id number"
