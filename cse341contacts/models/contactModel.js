@@ -30,7 +30,6 @@ const contactSchema = new mongoose.Schema({
     unique: true, // Ensures that each email is unique
     validate: {
       validator: function (value) {
-        // Custom email validation using a simple regex
         return /\S+@\S+\.\S+/.test(value);
       },
       message: "Invalid email format",
