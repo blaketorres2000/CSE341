@@ -4,24 +4,24 @@ const validate = (method) => {
   switch (method) {
     case 'addContact':
       return [
-        body('firstName').notEmpty(),
-        body('lastName').notEmpty(),
-        body('email').isEmail(),
-        body('favoriteColor').notEmpty(),
-        body('birthday').notEmpty(),
+        body('firstName').notEmpty().withMessage('First name is required'),
+        body('lastName').notEmpty().withMessage('Last name is required'),
+        body('email').isEmail().withMessage('Valid email is required'),
+        body('favoriteColor').notEmpty().withMessage('Favorite color is required'),
+        body('birthday').notEmpty().withMessage('Birthday is required'),
       ];
     case 'updateContact':
       return [
-        param('id').isMongoId(),
-        body('firstName').notEmpty(),
-        body('lastName').notEmpty(),
-        body('email').isEmail(),
-        body('favoriteColor').notEmpty(),
-        body('birthday').notEmpty(),
+        param('id').isMongoId().withMessage('Invalid contact ID'),
+        body('firstName').notEmpty().withMessage('First name is required'),
+        body('lastName').notEmpty().withMessage('Last name is required'),
+        body('email').isEmail().withMessage('Valid email is required'),
+        body('favoriteColor').notEmpty().withMessage('Favorite color is required'),
+        body('birthday').notEmpty().withMessage('Birthday is required'),
       ];
     case 'deleteContact':
       return [
-        param('id').isMongoId(),
+        param('id').isMongoId().withMessage('Invalid contact ID'),
       ];
 
     default:
@@ -32,7 +32,8 @@ const validate = (method) => {
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    const formattedErrors = errors.array().map(error => ({ field: error.param, message: error.msg }));
+    return res.status(400).json({ errors: formattedErrors });
   }
   next();
 };
