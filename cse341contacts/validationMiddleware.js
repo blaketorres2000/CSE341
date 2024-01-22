@@ -2,6 +2,10 @@ const { body, param, validationResult } = require('express-validator');
 
 const validate = (method) => {
   switch (method) {
+    case 'getContact':
+        return [
+          param('id').isMongoId().withMessage('Invalid contact ID'),
+        ];  
     case 'addContact':
       return [
         body('firstName').notEmpty().withMessage('First name is required'),

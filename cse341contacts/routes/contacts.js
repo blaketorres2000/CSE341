@@ -7,7 +7,7 @@ const { validate, handleValidationErrors } = require('../validationMiddleware');
 router.get('/', contactController.listContacts);
 
 // GET contacts by id or favoriteColor
-router.get('/:param?', contactController.listContacts);
+router.get('/:param?', validate('getContact'), handleValidationErrors, contactController.listContacts);
 
 // POST a new contact with validation
 router.post('/', validate('addContact'), handleValidationErrors, contactController.addContact);
