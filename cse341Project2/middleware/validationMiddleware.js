@@ -1,10 +1,11 @@
 const { body, param, validationResult } = require("express-validator");
+const moment = require('moment');
 
 const validate = (method) => {
   switch (method) {
     // Validation to get a medication by its ID number from the medlist collection
     case "getMedById":
-      return [param("id").isMongoId().withMessage("Invalid contact ID")];
+      return [param("id").isMongoId().withMessage("Invalid medication ID")];
 
     // Validation to get a medication by its ID number from the medlist collection
     case "getMedByName":
@@ -65,28 +66,31 @@ const validate = (method) => {
 
     // Validation to log the usage of a medication in the medUsage collection
     case "logUsage":
-      return [
-        param("id").isMongoId().withMessage("Invalid medication ID"),
-        body("medUnitsUsed")
-          .notEmpty()
-          .isNumeric()
-          .withMessage("Medication units used is required"),
-        body("medEndingInventory")
-          .notEmpty()
-          .isNumeric()
-          .withMessage("Medication ending inventory is required"),
-        body("medUsedDate")
-          .notEmpty()
-          .isDate()
-          .withMessage("Medication usage date is required in this format: YYYY-MM-DD"),
-      ];
+        return [
+          (req, res, next) => {
+            next();
+          },
+          param("id").isMongoId().withMessage("Invalid medication ID"),
+          body("medUnitsUsed")
+            .notEmpty()
+            .isNumeric()
+            .withMessage("Medication units used is required"),
+          body("medUsedDate")
+            .notEmpty()
+            .withMessage("Medication usage date is required in this format: YYYY-MM-DD"),
+        ];
 
     // Validation to meds used on a certain date from the medUsage collection
     case "getUsage":
         return [
-            param("date").isDate().withMessage("A valid date must be entered.")
+            param("date").custom(value => {
+                if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
+                    throw new Error('Invalid date format. Use YYYY-MM-DD.');
+                }
+                return true;
+            })
         ];
-
+    
     default:
       return [];
   }

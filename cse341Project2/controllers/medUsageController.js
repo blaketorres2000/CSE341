@@ -1,4 +1,4 @@
-const { Usage } = require("../models/");
+const { Med, Usage } = require("../models/");
 const mongoose = require("mongoose");
 
 const medUsageController = {};
@@ -38,22 +38,27 @@ medUsageController.getMedUsageByDate = async function (req, res) {
  * Function to log usage of a med by id
  ***********************************************************************************/
 medUsageController.logUsage = async function (req, res) {
-    //swagger.tags = ['Meds']
-    //swagger.description = ['This is to log the usage of a medication by id in the medUsage collection.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
     try {
         const medId = req.params.id;
-        const { medUnitsUsed, medEndingInventory, medUsedDate } = req.body;
+        const { medUnitsUsed, medUsedDate } = req.body;
 
         // Validate that medId is a valid ObjectId
         if (!mongoose.Types.ObjectId.isValid(medId)) {
             return res.status(400).json({ error: "Invalid med ID. Your fault, not mine!" });
         }
 
-        const med = await Usage.findOne({ medId: medId });
+        // Fetch the medication information from the medList collection
+        const med = await Med.findById(medId);
 
         if (!med) {
-            return res.status(404).json({ error: "Medication not found in medUsage collection. Your fault, not mine!" });
+            return res.status(404).json({ error: "Medication not found in medList collection. Your fault, not mine!" });
         }
+
+        // Calculate the new inventory after usage
+        const newInventory = med.medInventory - medUnitsUsed;
+
+        // Update the inventory in the medList collection
+        await Med.findByIdAndUpdate(medId, { medInventory: newInventory });
 
         // Create a new Usage entry
         const newUsage = new Usage({
@@ -63,13 +68,25 @@ medUsageController.logUsage = async function (req, res) {
             medUnit: med.medUnit,
             medClass: med.medClass,
             medUnitsUsed: medUnitsUsed,
-            medEndingInventory: medEndingInventory,
+            medEndingInventory: newInventory,
             medUsedDate: medUsedDate,
         });
 
+        // Save the new Usage entry
         const savedUsage = await newUsage.save();
 
-        res.status(201).json(savedUsage);
+        // Check if the inventory is below the threshold and include a warning in the response
+        if (newInventory < med.medThreshold) {
+            return res.status(200).json({
+                warning: "Medication inventory below threshold. Refill required.",
+                success: `Medication usage for ${med.medName} logged successfully.`,
+            });
+        }
+
+        // Continue with the rest of the logic for a successful log...
+        return res.status(201).json({
+            success: `Medication usage for ${med.medName} ${med.medStrength} logged successfully.`,
+        });
     } catch (err) {
         console.error("Error logging med usage:", err);
         res.status(500).json({ error: "Internal Server Error. Okay, maybe it's my fault." });

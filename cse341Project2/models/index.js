@@ -24,7 +24,7 @@ const usageSchema = new mongoose.Schema({
   medUnit: { type: String, },
   medClass: { type: String },
   medUnitsUsed: { type: Number, required: true },
-  medEndingInventory: { type: Number, required: true },
+  medEndingInventory: { type: Number },
   medUsedDate: { type: Date, required: true },
 }, { collection: 'medUsage' });
 

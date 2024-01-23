@@ -37,10 +37,11 @@ medController.addMed = async function (req, res) {
         message: `${savedMed.medName} ${savedMed.medStrength} has been added successfully!`,
       });
   } catch (err) {
-    console.error(`Error adding ${newMed.medName} ${newMed.medStrength}`);
+    console.error(`Error adding medication`), err;
     res
       .status(500)
       .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      console.log("Error adding medication:", err);
   }
 };
 
@@ -62,7 +63,7 @@ medController.updateMed = async function (req, res) {
       medThreshold,
     } = req.body;
 
-    // Ensure that the contactId is a valid ObjectId
+    // Ensure that the medId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(medId)) {
       return res
         .status(400)
@@ -108,7 +109,7 @@ medController.deleteMed = async function (req, res) {
   try {
     const medId = req.params.id;
 
-    // Ensure that the contactId is a valid ObjectId
+    // Ensure that the medId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(medId)) {
       return res
         .status(400)

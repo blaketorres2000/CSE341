@@ -9,6 +9,7 @@
   "basePath": "/",
   "schemes": ["http"],
   "paths": {
+
     "/meds/": {
       "get": {
         "description": "Retrieve information about all medications",
@@ -68,6 +69,7 @@
         }
       }
     },
+
     "/meds/{id}": {
       "get": {
         "description": "Retrieve medication information by ID",
@@ -161,9 +163,50 @@
             "description": "Internal Server Error"
           }
         }
+      },
+    "post": {
+      "description": "Log medication usage by ID",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "medUnitsUsed": {
+                "example": "any number"
+              },
+              "medUsedDate": {
+                "example": "any date"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "500": {
+          "description": "Internal Server Error"
+        }
       }
-    },
-    "/meds/{name}": {
+    }
+  },
+
+    "/meds/name/{name}": {
       "get": {
         "description": "Retrieve medication information by name",
         "parameters": [
@@ -175,13 +218,23 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful"
+          },
           "400": {
             "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/meds/{date}": {
+
+    "/meds/date/{date}": {
       "get": {
         "description": "Retrieve medication usage information by date",
         "parameters": [
@@ -198,51 +251,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/meds/log/:id": {
-      "post": {
-        "description": "Log medication usage by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "medUnitsUsed": {
-                  "example": "any number"
-                },
-                "medEndingInventory": {
-                  "example": "any number"
-                },
-                "medUsedDate": {
-                  "example": "any date"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
