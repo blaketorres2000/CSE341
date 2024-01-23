@@ -26,12 +26,12 @@ app.use((req, res, next) => {
 
 // Middleware to parse JSON requests
 app.use('/api-docs', (req, res, next) => {
-  const apiKeyFromHeader = "3db70934-345e-409f-96cb-070e94950ffa";
+  const apiKeyFromHeader = "5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa";
 
   // Check if API key is present and valid
   if (apiKeyFromHeader && apiKeyFromHeader === apiKey) {
     req.query.apiKey = apiKeyFromHeader;
-    next(); // Proceed to the next middleware
+    next();
   } else {
     console.log("Unauthorized. Invalid API Key.");
     res.status(401).json({ error: "Unauthorized" });

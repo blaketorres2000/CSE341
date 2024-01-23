@@ -3,7 +3,7 @@ const router = express.Router();
 const contactController = require('../controllers/contactController');
 const { validate, handleValidationErrors } = require('../validationMiddleware');
 
-// GET contacts by id or favoriteColor
+// GET all contacts
 router.get('/', contactController.listContacts);
 
 // GET contacts by id or favoriteColor
