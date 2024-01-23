@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 /******************************************
- * Connection Model and Schema
+ * Connection Model and Schema 
  ******************************************/
+
+// schema for the medList collection
 const medSchema = new mongoose.Schema({
   medId: { type: Number, required: true },
   medName: { type: String, required: true },
@@ -15,6 +17,7 @@ const medSchema = new mongoose.Schema({
 
 const Med = mongoose.model("Med", medSchema);
 
+// schema for the medUsage collection
 const usageSchema = new mongoose.Schema({
   medId: { type: Number, required: true },
   medName: { type: String, required: true },

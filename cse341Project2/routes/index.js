@@ -3,8 +3,10 @@ const router = express.Router();
 const medController = require('../controllers/');
 const medRoutes = require('./medRoutes');
 
-// Define routes directly
+// Route to serve home message
 router.get('/', medController.homePage);
+
+// Route to allow med routes to be served from /meds
 router.use('/meds', medRoutes);
 
 module.exports = router;

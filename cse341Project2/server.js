@@ -1,12 +1,12 @@
 /******************************************
  * Requere Statements
  *****************************************/
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config();
 const bodyParser = require("body-parser");
-const mongoDB = require("./db/mongodb.js");
+const mongoDB = require("./db/mongo.js");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output.json");
 

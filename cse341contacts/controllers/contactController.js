@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const contactController = {};
 
 /******************************************
- * Function to get clients from the database
+ * Function to get the home page
  ******************************************/
 contactController.homePage = function (req, res) {
   //swagger.tags = ['Contacts']
