@@ -1,21 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const medGetController = require('../controllers/medGetController');
 const medController = require('../controllers/medController');
+const medGetController = require('../controllers/medGetController');
+const medUsageController = require('../controllers/medUsageController')
+const { validate, handleValidationErrors } = require('../middleware/validationMiddleware')
 
 // GET all meds
 router.get('/', medGetController.listAllMeds);
 
-// GET med by id or name
-router.get('/:param?', medGetController.getMedByParam);
+// Add a new med
+router.post('/', validate('addMed'), handleValidationErrors, medController.addMed);
 
-// POST new med
-router.post('/', medController.addMed);
+// GET med by id
+router.get('/:id', validate('getMedById'), handleValidationErrors, medGetController.getMedById);
 
-// PUT update med
-router.put('/:id', medController.updateMed);
+// Update a med
+router.put('/:id', validate('updateMed'), handleValidationErrors, medController.updateMed);
 
-// DELETE med
-router.delete('/:id', medController.deleteMed);
+// DELETE a med
+router.delete('/:id', validate('deleteMed'), handleValidationErrors, medController.deleteMed);
+
+// GET med by name
+router.get('/:name', validate('getMedByName'), handleValidationErrors, medGetController.getMedByName);
+
+// GET med usage by date
+router.get('/:date', validate('getUsage'), handleValidationErrors, medUsageController.getMedUsageByDate);
+
+// Log usage of a med by id
+router.post('/log/:id', validate('logUsage'), handleValidationErrors, medUsageController.logUsage)
 
 module.exports = router;

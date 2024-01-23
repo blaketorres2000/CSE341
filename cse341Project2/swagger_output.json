@@ -1,0 +1,254 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CSE341 Node.js",
+    "description": "Node.js assignments for CSE341",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5600",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/meds/": {
+      "get": {
+        "description": "Retrieve information about all medications",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "Add a new medication to the list",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "medName": {
+                  "example": "any"
+                },
+                "medStrength": {
+                  "example": "10mg"
+                },
+                "medUnit": {
+                  "example": "tablet, capsule, etc."
+                },
+                "medClass": {
+                  "example": "2,3,4, or 5"
+                },
+                "medInventory": {
+                  "example": "any number"
+                },
+                "medThreshold": {
+                  "example": "any number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/meds/{id}": {
+      "get": {
+        "description": "Retrieve medication information by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "put": {
+        "description": "Update medication information by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "medName": {
+                  "example": "any"
+                },
+                "medStrength": {
+                  "example": "10mg"
+                },
+                "medUnit": {
+                  "example": "tablet, capsule, etc."
+                },
+                "medClass": {
+                  "example": "2,3,4, or 5"
+                },
+                "medInventory": {
+                  "example": "any number"
+                },
+                "medThreshold": {
+                  "example": "any number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a medication by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/meds/{name}": {
+      "get": {
+        "description": "Retrieve medication information by name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/meds/{date}": {
+      "get": {
+        "description": "Retrieve medication usage information by date",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/meds/log/:id": {
+      "post": {
+        "description": "Log medication usage by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "medUnitsUsed": {
+                  "example": "any number"
+                },
+                "medEndingInventory": {
+                  "example": "any number"
+                },
+                "medUsedDate": {
+                  "example": "any date"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,10 +6,9 @@ const mongoose = require("mongoose");
 
 // schema for the medList collection
 const medSchema = new mongoose.Schema({
-  medId: { type: Number, required: true },
   medName: { type: String, required: true },
   medStrength: { type: String, required: true },
-  medUnit: { type: String, required: true, unique: true },
+  medUnit: { type: String, required: true },
   medClass: { type: String, required: true },
   medInventory: { type: Number, required: true },
   medThreshold: { type: Number, required: true },
@@ -19,11 +18,11 @@ const Med = mongoose.model("Med", medSchema);
 
 // schema for the medUsage collection
 const usageSchema = new mongoose.Schema({
-  medId: { type: Number, required: true },
-  medName: { type: String, required: true },
-  medStrength: { type: String, required: true },
-  medUnit: { type: String, required: true, unique: true },
-  medClass: { type: String, required: true },
+  medId: { type: String, required: true},
+  medName: { type: String },
+  medStrength: { type: String },
+  medUnit: { type: String, },
+  medClass: { type: String },
   medUnitsUsed: { type: Number, required: true },
   medEndingInventory: { type: Number, required: true },
   medUsedDate: { type: Date, required: true },

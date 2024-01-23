@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const medController = require('../controllers/');
+const medController = require('../controllers/index');
 const medRoutes = require('./medRoutes');
 
 // Route to serve home message
