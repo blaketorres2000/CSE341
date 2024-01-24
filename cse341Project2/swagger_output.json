@@ -5,7 +5,7 @@
     "description": "Node.js assignments for CSE341",
     "version": "1.0.0"
   },
-  "host": "https://cse341project2-00el.onrender.com",
+  "host": "cse341project2-00el.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "securityDefinitions": {
