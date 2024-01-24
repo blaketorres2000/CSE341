@@ -107,14 +107,4 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-const apiKeyMiddleware = (req, res, next) => {
-    const apiKey = req.headers['apiKeyFromHeader'];
-  
-    if (apiKey !== '5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa') {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-  
-    next();
-  };
-
-module.exports = { validate, handleValidationErrors, apiKeyMiddleware };
+module.exports = { validate, handleValidationErrors };

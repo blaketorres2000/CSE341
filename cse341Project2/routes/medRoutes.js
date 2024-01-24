@@ -3,7 +3,7 @@ const router = express.Router();
 const medController = require('../controllers/medController');
 const medGetController = require('../controllers/medGetController');
 const medUsageController = require('../controllers/medUsageController')
-const { validate, handleValidationErrors, apiKeyMiddleware } = require('../middleware/validationMiddleware')
+const { validate, handleValidationErrors } = require('../middleware/validationMiddleware')
 
 // GET all meds
 router.get('/', medGetController.listAllMeds);
