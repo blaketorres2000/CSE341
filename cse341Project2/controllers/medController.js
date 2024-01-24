@@ -40,7 +40,7 @@ medController.addMed = async function (req, res) {
     console.error(`Error adding medication`), err;
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
       console.log("Error adding medication:", err);
   }
 };
@@ -67,7 +67,7 @@ medController.updateMed = async function (req, res) {
     if (!mongoose.Types.ObjectId.isValid(medId)) {
       return res
         .status(400)
-        .json({ error: "Invalid medication ID. Your fault, not mine!" });
+        .json({ error: "Invalid medication ID." });
     }
 
     // Create an object with the fields to be updated
@@ -87,7 +87,7 @@ medController.updateMed = async function (req, res) {
     if (!updatedMed) {
       return res
         .status(404)
-        .json({ error: "Medication not found. Your fault, not mine!" });
+        .json({ error: "Medication not found." });
     }
 
     res
@@ -99,7 +99,7 @@ medController.updateMed = async function (req, res) {
     console.error("Error updating medication:", err);
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
   }
 };
 
@@ -117,7 +117,7 @@ medController.deleteMed = async function (req, res) {
     if (!mongoose.Types.ObjectId.isValid(medId)) {
       return res
         .status(400)
-        .json({ error: "Invalid medication ID. Your fault, not mine!" });
+        .json({ error: "Invalid medication ID." });
     }
 
     const deletedMed = await Med.findByIdAndDelete(medId);
@@ -125,7 +125,7 @@ medController.deleteMed = async function (req, res) {
     if (!deletedMed) {
       return res
         .status(404)
-        .json({ error: "Medication not found. Your fault, not mine!" });
+        .json({ error: "Medication not found." });
     }
 
     res
@@ -137,7 +137,7 @@ medController.deleteMed = async function (req, res) {
     console.error(`Error deleting medication:`, err);
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
   }
 };
 

@@ -16,7 +16,7 @@ medGetController.listAllMeds = async function (req, res) {
     console.error("Error fetching medications:", err);
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
   }
 };
 
@@ -42,7 +42,7 @@ medGetController.getMedById = async function (req, res) {
     if (!med) {
       return res
         .status(404)
-        .json({ error: "Medication not found. Your fault, not mine!" });
+        .json({ error: "Medication not found." });
     }
 
     return res.json(med);
@@ -50,7 +50,7 @@ medGetController.getMedById = async function (req, res) {
     console.error("Error fetching medication by ID:", err);
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
   }
 };
 
@@ -65,7 +65,7 @@ medGetController.getMedByName = async function (req, res) {
 
     if (!paramName) {
       return res.status(400).json({
-        error: "Medication name parameter is required. Your fault, not mine!",
+        error: "Medication name parameter is required.",
       });
     }
 
@@ -76,7 +76,7 @@ medGetController.getMedByName = async function (req, res) {
     if (!meds || meds.length === 0) {
       return res.status(404).json({
         error:
-          "No medications found with the specified name. Your fault, not mine!",
+          "No medications found with the specified name.",
       });
     }
 
@@ -85,7 +85,7 @@ medGetController.getMedByName = async function (req, res) {
     console.error("Error finding medications by name:", err);
     res
       .status(500)
-      .json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+      .json({ error: "Internal Server Error." });
   }
 };
 

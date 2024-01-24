@@ -13,7 +13,7 @@ medUsageController.getMedUsageByDate = async function (req, res) {
         const dateParam = req.params.date;
 
         if (!dateParam) {
-            return res.status(400).json({ error: "Date parameter is required. Your fault, not mine!" });
+            return res.status(400).json({ error: "Date parameter is required using date format YYYY-MM-DD" });
         }
 
         const usageDate = new Date(dateParam);
@@ -30,7 +30,7 @@ medUsageController.getMedUsageByDate = async function (req, res) {
         return res.json(medsUsedOnDate);
     } catch (err) {
         console.error("Error fetching meds used on date:", err);
-        res.status(500).json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+        res.status(500).json({ error: "Internal Server Error." });
     }
 };
 
@@ -44,14 +44,14 @@ medUsageController.logUsage = async function (req, res) {
 
         // Validate that medId is a valid ObjectId
         if (!mongoose.Types.ObjectId.isValid(medId)) {
-            return res.status(400).json({ error: "Invalid med ID. Your fault, not mine!" });
+            return res.status(400).json({ error: "Invalid med ID." });
         }
 
         // Fetch the medication information from the medList collection
         const med = await Med.findById(medId);
 
         if (!med) {
-            return res.status(404).json({ error: "Medication not found in medList collection. Your fault, not mine!" });
+            return res.status(404).json({ error: "Medication not found in medList collection." });
         }
 
         // Calculate the new inventory after usage
@@ -89,7 +89,7 @@ medUsageController.logUsage = async function (req, res) {
         });
     } catch (err) {
         console.error("Error logging med usage:", err);
-        res.status(500).json({ error: "Internal Server Error. Okay, maybe it's my fault." });
+        res.status(500).json({ error: "Internal Server Error." });
     }
 };
 
