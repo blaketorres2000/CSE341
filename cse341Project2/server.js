@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 const mongoDB = require("./db/mongo.js");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output.json");
-
+const { apiKeyMiddleware } = require('./middleware/validationMiddleware');
 const apiKey = process.env.apiKey;
 
 // Use cors middleware
@@ -26,13 +26,18 @@ app.use((req, res, next) => {
 
 // Middleware to parse JSON requests
 app.use('/api-docs', (req, res, next) => {
-  const apiKeyFromHeader = "5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa";
+  console.log("Headers from server side:", req.headers);
+  const apiKeyFromHeader = '5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa';
+
+  console.log("Headers:", req.headers);
+  console.log("Extracted API Key:", apiKey);
 
   // Check if API key is present and valid
   if (apiKeyFromHeader && apiKeyFromHeader === apiKey) {
     req.query.apiKey = apiKeyFromHeader;
     next();
   } else {
+    console.log(`API Key from header: ${apiKeyFromHeader}`);
     console.log("Unauthorized. Invalid API Key.");
     res.status(401).json({ error: "Unauthorized" });
   }
@@ -41,11 +46,14 @@ app.use('/api-docs', (req, res, next) => {
 // Middleware to serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, (req, res, next) => {
   // Pass the apiKey from the query string to the Swagger UI
-  req.query.apiKey = req.headers["z-key"];
+  req.query.apiKey = req.headers['apiKeyFromHeader'];
   swaggerUi.setup(swaggerDocument)(req, res, next);
 });
 
 app.use(bodyParser.json());
+
+// Apply globally for all routes
+app.use(apiKeyMiddleware);
 
 /******************************************
  * Routes

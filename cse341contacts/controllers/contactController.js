@@ -20,14 +20,14 @@ contactController.listContacts = async function (req, res) {
     #swagger.description = 'API Key if needed: 3db70934-345e-409f-96cb-070e94950ffa'
   */
   try {
-    const param = req.params.param;
+    const param = req.params.id;
 
     if (param) {
       const isObjectId = mongoose.Types.ObjectId.isValid(param);
 
       if (isObjectId) {
         // If param is a valid ObjectId, search by _id
-        const contact = await Contact.findById(param);
+        const contact = await Contact.findById(contactId);
         if (!contact) {
           return res.status(404).json({ error: "Contact not found" });
         }

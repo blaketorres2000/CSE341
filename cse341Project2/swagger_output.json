@@ -8,11 +8,34 @@
   "host": "localhost:5600",
   "basePath": "/",
   "schemes": ["http"],
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "z-key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+    }
+  ],
   "paths": {
-
     "/meds/": {
       "get": {
-        "description": "Retrieve information about all medications",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Retrieve all medications from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "parameters": [
+          {
+            "name": "apiKey",
+            "in": "headers",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -26,7 +49,12 @@
         }
       },
       "post": {
-        "description": "Add a new medication to the list",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Add a new medication to the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "body",
@@ -72,7 +100,12 @@
 
     "/meds/{id}": {
       "get": {
-        "description": "Retrieve medication information by ID",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Retrieve information for a single medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "id",
@@ -88,7 +121,12 @@
         }
       },
       "put": {
-        "description": "Update medication information by ID",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Update information for a single medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "id",
@@ -140,7 +178,12 @@
         }
       },
       "delete": {
-        "description": "Delete a medication by ID",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Delete a medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "id",
@@ -164,51 +207,61 @@
           }
         }
       },
-    "post": {
-      "description": "Log medication usage by ID",
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "medUnitsUsed": {
-                "example": "any number"
-              },
-              "medUsedDate": {
-                "example": "any date"
+      "post": {
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Log medication usage using the medication's ID\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "medUnitsUsed": {
+                  "example": "any number"
+                },
+                "medUsedDate": {
+                  "example": "any date"
+                }
               }
             }
           }
-        }
-      ],
-      "responses": {
-        "201": {
-          "description": "Created"
-        },
-        "400": {
-          "description": "Bad Request"
-        },
-        "404": {
-          "description": "Not Found"
-        },
-        "500": {
-          "description": "Internal Server Error"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       }
-    }
-  },
+    },
 
     "/meds/name/{name}": {
       "get": {
-        "description": "Retrieve medication information by name",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Retrieve medication information by name for all meds matching the name.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "name",
@@ -236,7 +289,12 @@
 
     "/meds/date/{date}": {
       "get": {
-        "description": "Retrieve medication usage information by date",
+        "security": [
+          {
+            "apiKey": ["5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa"]
+          }
+        ],
+        "description": "Retrieve medication usage information by date.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
         "parameters": [
           {
             "name": "date",
