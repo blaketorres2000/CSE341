@@ -17,7 +17,7 @@
   },
   "security": [
     {
-      "apiKey": ["3db70934-345e-409f-96cb-070e94950ffa"]
+      "apiKey": ["3db70934345e409f96cb070e94950ffa"]
     }
   ],
   "paths": {
@@ -33,7 +33,7 @@
     },
     "/contacts": {
       "get": {
-        "description": "Get all contacts.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "description": "Get all contacts.\n The apiKey if needed is 3db70934345e409f96cb070e94950ffa.",
         "parameters": [
           {
             "name": "apiKey",
@@ -54,7 +54,7 @@
         }
       },
       "post": {
-        "description": "Add a new contact.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "description": "Add a new contact.\n The apiKey if needed is 3db70934345e409f96cb070e94950ffa.",
         "parameters": [
           {
             "name": "apiKey",
@@ -98,7 +98,7 @@
     },
     "/contacts/{param?}": {
       "get": {
-        "description": "Get a specific contact using their id or favorite color as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "description": "Get a specific contact using their id or favorite color as the param.\n The apiKey if needed is 3db70934345e409f96cb070e94950ffa.",
         "parameters": [
           {
             "name": "apiKey",
@@ -127,7 +127,7 @@
     },
     "/contacts/{id}": {
       "put": {
-        "description": "Update a contact using their id as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "description": "Update a contact using their id as the param.\n The apiKey if needed is 3db70934345e409f96cb070e94950ffa.",
         "parameters": [
           {
             "name": "apiKey",
@@ -181,7 +181,7 @@
         }
       },
       "delete": {
-        "description": "Delete a contact using their id as the param.\n The apiKey if needed is 3db70934-345e-409f-96cb-070e94950ffa.",
+        "description": "Delete a contact using their id as the param.\n The apiKey if needed is 3db70934345e409f96cb070e94950ffa.",
         "parameters": [
           {
             "name": "apiKey",

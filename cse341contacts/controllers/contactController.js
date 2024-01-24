@@ -17,7 +17,7 @@ contactController.homePage = function (req, res) {
 contactController.listContacts = async function (req, res) {
   //swagger.tags = ['Contacts']
   /*
-    #swagger.description = 'API Key if needed: 3db70934-345e-409f-96cb-070e94950ffa'
+    #swagger.description = 'API Key if needed: 3db70934345e409f96cb070e94950ffa'
   */
   try {
     const param = req.params.id;
@@ -55,7 +55,7 @@ contactController.listContacts = async function (req, res) {
 contactController.addContact = async function (req, res) {
   //swagger.tags = ['Contacts']
     /*
-    #swagger.description = 'API Key if needed: 3db70934-345e-409f-96cb-070e94950ffa'
+    #swagger.description = 'API Key if needed: 3db70934345e409f96cb070e94950ffa'
   */
   try {
     const { firstName, lastName, email, favoriteColor, birthday } = req.body;
@@ -86,7 +86,7 @@ contactController.addContact = async function (req, res) {
 contactController.updateContact = async function (req, res) {
     //swagger.tags = ['Contacts']
     /*
-    #swagger.description = 'API Key if needed: 3db70934-345e-409f-96cb-070e94950ffa'
+    #swagger.description = 'API Key if needed: 3db70934345e409f96cb070e94950ffa'
   */
   try {
     const contactId = req.params.id;
@@ -129,7 +129,7 @@ contactController.updateContact = async function (req, res) {
 contactController.deleteContact = async function (req, res) {
   //swagger.tags = ['Contacts']
     /*
-    #swagger.description = 'API Key if needed: 3db70934-345e-409f-96cb-070e94950ffa'
+    #swagger.description = 'API Key if needed: 3db70934345e409f96cb070e94950ffa'
   */
     try {
     const contactId = req.params.id;

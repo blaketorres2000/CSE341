@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 // Middleware to parse JSON requests
 app.use('/api-docs', (req, res, next) => {
-  const apiKeyFromHeader = "3db70934-345e-409f-96cb-070e94950ffa";
+  const apiKeyFromHeader = "3db70934345e409f96cb070e94950ffa";
 
   // Check if API key is present and valid
   if (apiKeyFromHeader && apiKeyFromHeader === apiKey) {
