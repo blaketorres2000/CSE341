@@ -15,7 +15,7 @@ const uri = process.env.MONGODB_URI;
 const connectionPromise = mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false, // Set to false to use native findOneAndUpdate() instead of findAndModify()
+  useFindAndModify: false,
 });
 
 // Export the connection promise and the connectToMongoDB function

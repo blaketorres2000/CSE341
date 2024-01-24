@@ -5,9 +5,9 @@
     "description": "Node.js assignments for CSE341",
     "version": "1.0.0"
   },
-  "host": "localhost:5600",
+  "host": "https://cse341project2-00el.onrender.com",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": ["https"],
   "securityDefinitions": {
     "apiKey": {
       "type": "apiKey",

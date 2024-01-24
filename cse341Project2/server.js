@@ -36,7 +36,7 @@ app.use("/", routes);
  ******************************************/
 const PORT = process.env.PORT || 5600;
 
-// Use the Mongoose connection from mongodb.js
+// Use the Mongoose connection from mongo.js
 mongoDB.connectToMongoDB()
   .then(() => {
     app.listen(PORT, () => {
