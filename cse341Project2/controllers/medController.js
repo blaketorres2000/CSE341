@@ -90,7 +90,11 @@ medController.updateMed = async function (req, res) {
         .json({ error: "Medication not found. Your fault, not mine!" });
     }
 
-    res.status(200).json(updatedMed);
+    res
+      .status(201)
+      .json({
+        message: `${updatedMed.medName} ${updatedMed.medStrength} has been updated successfully!`,
+      });
   } catch (err) {
     console.error("Error updating medication:", err);
     res
