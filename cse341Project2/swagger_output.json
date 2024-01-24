@@ -10,7 +10,7 @@
   "schemes": ["https"],
   "securityDefinitions": {
     "apiKey": {
-      "type": "API_KEY",
+      "type": "apiKey",
       "name": "z-key",
       "in": "header"
     }
