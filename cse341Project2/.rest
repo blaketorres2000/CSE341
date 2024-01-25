@@ -1,0 +1,110 @@
+//****************************
+// Test using Localhost:5600
+//****************************
+
+// home page
+GET http://localhost:5600/
+
+// get all the meds in the database
+GET http://localhost:5600/meds/
+
+// get a specific med by id
+GET http://localhost:5600/meds/"enter id here"
+
+// get a specific med by name
+GET http://localhost:5600/meds/name/"enter name here"
+
+// post a new med
+POST http://localhost:5600/meds/
+Content-Type: application/json
+{
+  "medName": "any",
+  "medStrength": "10mg",
+  "medUnit": "tablet, capsule, etc.",
+  "medClass": "2,3,4, or 5",
+  "medInventory": "any number",
+  "medThreshold": "any number"
+}
+
+// update a med by id
+PUT http://localhost:5600/meds/"enter id here"
+Content-Type: application/json
+{
+  "medName": "any",
+  "medStrength": "10mg",
+  "medUnit": "tablet, capsule, etc.",
+  "medClass": "2,3,4, or 5",
+  "medInventory": "any number",
+  "medThreshold": "any number"
+}
+
+// delete a med by id
+DELETE http://localhost:5600/meds/"enter id here"
+
+// post the usage of a med by id
+POST http://localhost:5600/meds/usage/"enter id here"
+Content-Type: application/json
+{
+  "medUsage": "any number",
+  "medDate": "any date"
+}
+
+// get the usage of a med by id
+GET http://localhost:5600/meds/usageById/"enter id here"
+
+// get the usage of all meds for a specific date (YYYY-MM-DD)
+GET http://localhost:5600/meds/usageByDate/"enter date here"
+```
+
+//****************************
+// Test using Render.com
+//****************************
+
+// home page
+GET https://cse341project2-00el.onrender.com/
+
+// get all the meds in the database
+GET https://cse341project2-00el.onrender.com/meds/
+
+// get a specific med by id
+GET https://cse341project2-00el.onrender.com/meds/"enter id here"
+
+// get a specific med by name
+GET https://cse341project2-00el.onrender.com/meds/name/"enter name here"
+
+// post a new med
+POST https://cse341project2-00el.onrender.com/meds/
+Content-Type: application/json
+{
+  "medName": "any",
+  "medStrength": "10mg",
+  "medUnit": "tablet, capsule, etc.",
+  "medClass": "2,3,4, or 5",
+  "medInventory": "any number",
+  "medThreshold": "any number"
+}
+
+// update a med by id
+PUT https://cse341project2-00el.onrender.com/meds/"enter id here"
+Content-Type: application/json
+{
+  "medName": "any",
+  "medStrength": "10mg",
+  "medUnit": "tablet, capsule, etc.",
+  "medClass": "2,3,4, or 5",
+  "medInventory": "any number",
+  "medThreshold": "any number"
+}
+
+// delete a med by id
+DELETE https://cse341project2-00el.onrender.com/meds/"enter id here"
+
+// post the usage of a med by id
+POST https://cse341project2-00el.onrender.com/meds/usage/"enter id here"
+
+// get the usage of a med by id
+GET https://cse341project2-00el.onrender.com/meds/usageById/"enter id here"
+
+// get the usage of all meds for a specific date (YYYY-MM-DD)
+GET https://cse341project2-00el.onrender.com/meds/usageByDate/"enter date here"
+```
