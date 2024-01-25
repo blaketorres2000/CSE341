@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "CSE341 Node.js",
-    "description": "Node.js assignments for CSE341",
+    "title": "CSE341Project2 Node.js",
+    "description": "Node.js Project 2 assignment for CSE341. This project is a REST API for a medication inventory system. It allows the user to add, update, and delete medications from the database. It also allows the user to log medication usage. The user can also retrieve information about medications by name or by date.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
     "version": "1.0.0"
   },
   "host": "cse341project2-00el.onrender.com",
@@ -23,7 +23,7 @@
   "paths": {
     "/meds/": {
       "get": {
-        "description": "Retrieve all medications from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Retrieve all medications from the database. This will not retrieve medication usage logs for the medications.",
         "responses": {
           "200": {
             "description": "OK"
@@ -37,7 +37,7 @@
         }
       },
       "post": {
-        "description": "Add a new medication to the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Add a new medication to the database. All feilds are required.",
         "parameters": [
           {
             "name": "body",
@@ -83,7 +83,7 @@
 
     "/meds/{id}": {
       "get": {
-        "description": "Retrieve information for a single medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Retrieve information for a single medication by ID. This will not retrieve medication usage logs for the medication.",
         "parameters": [
           {
             "name": "id",
@@ -99,7 +99,7 @@
         }
       },
       "put": {
-        "description": "Update information for a single medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Update information for a single medication by ID. All fields are required.",
         "parameters": [
           {
             "name": "id",
@@ -151,7 +151,7 @@
         }
       },
       "delete": {
-        "description": "Delete a medication by ID.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Delete a medication by ID. This will not delete medication usage logs for the medication.",
         "parameters": [
           {
             "name": "id",
@@ -174,9 +174,40 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+
+      "/meds/name/{name}": {
+        "get": {
+          "description": "Retrieve medication information by name for all meds matching the search. This will allow the user to search for a medication by partial or full spelling of the name.",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "404": {
+              "description": "Not Found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },  
+
+      "/meds/usage/{id}": {
       "post": {
-        "description": "Log medication usage using the medication's ID\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Log medication usage using the medication's ID. This will also update the medication's inventory.",
         "parameters": [
           {
             "name": "id",
@@ -217,12 +248,12 @@
       }
     },
 
-    "/meds/name/{name}": {
+    "/meds/usage/{date}": {
       "get": {
-        "description": "Retrieve medication information by name for all meds matching the name.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Retrieve medication usage information for all medications filled on a specific date.",
         "parameters": [
           {
-            "name": "name",
+            "name": "date",
             "in": "path",
             "required": true,
             "type": "string"
@@ -230,13 +261,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful"
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -245,12 +273,12 @@
       }
     },
 
-    "/meds/date/{date}": {
+    "/meds/usageById/{id}": {
       "get": {
-        "description": "Retrieve medication usage information by date.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa",
+        "description": "Retrieve medication usage information for a specific medication by ID. This will retrieve all usage logs for the medication.",
         "parameters": [
           {
-            "name": "date",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"

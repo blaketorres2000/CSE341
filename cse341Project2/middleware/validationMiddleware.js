@@ -80,7 +80,7 @@ const validate = (method) => {
             .withMessage("Medication usage date is required in this format: YYYY-MM-DD"),
         ];
 
-    // Validation to meds used on a certain date from the medUsage collection
+    // Validation to get meds used on a certain date from the medUsage collection
     case "getUsage":
         return [
             param("date").custom(value => {
@@ -93,6 +93,11 @@ const validate = (method) => {
     
     default:
       return [];
+
+  // Validation to get usage of a medication by its ID number from the medUsage collection
+  case "getUsageById":
+    return [param("id").isMongoId().withMessage("Invalid medication ID")];
+
   }
 };
 

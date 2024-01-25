@@ -24,9 +24,12 @@ router.put('/:id', validate('updateMed'), handleValidationErrors, medController.
 router.delete('/:id', validate('deleteMed'), handleValidationErrors, medController.deleteMed);
 
 // Log usage of a med by id
-router.post('/:id', validate('logUsage'), handleValidationErrors, medUsageController.logUsage);
+router.post('/usage/:id', validate('logUsage'), handleValidationErrors, medUsageController.logUsage);
 
 // GET med usage by date
-router.get('/date/:date', validate('getUsage'), handleValidationErrors, medUsageController.getMedUsageByDate);
+router.get('/usage/:date', validate('getUsage'), handleValidationErrors, medUsageController.getMedUsageByDate);
+
+// GET med usage by id
+router.get('/usageById/:id', validate('getUsageById'), handleValidationErrors, medUsageController.getMedUsageById);
 
 module.exports = router;

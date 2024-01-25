@@ -8,7 +8,7 @@ const medUsageController = {};
  ***********************************************************************************/
 medUsageController.getMedUsageByDate = async function (req, res) {
     //swagger.tags = ['Meds']
-    //swagger.description = ['This is to get a list of medications used on a certain date from the medUsage collection.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+    //swagger.description = ['This is to get a list of medications used on a certain date from the medUsage collection.']
     try {
         const dateParam = req.params.date;
 
@@ -30,6 +30,32 @@ medUsageController.getMedUsageByDate = async function (req, res) {
         return res.json(medsUsedOnDate);
     } catch (err) {
         console.error("Error fetching meds used on date:", err);
+        res.status(500).json({ error: "Internal Server Error." });
+    }
+};
+
+/************************************************************************************
+ * Function to get a list of usage results by id from the medUsage collection
+***********************************************************************************/
+medUsageController.getMedUsageById = async function (req, res) {
+    //swagger.tags = ['Meds']
+    //swagger.description = ['This is to get a list of usage results by id from the medUsage collection.']
+    try {
+        const medId = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(medId)) {
+            return res.status(400).json({ error: "Invalid med ID." });
+        }
+
+        const medUsage = await Usage.find({ medId: medId });
+
+        if (!medUsage) {
+            return res.status(404).json({ error: "Medication usage not found." });
+        }
+
+        return res.json(medUsage);
+    } catch (err) {
+        console.error("Error fetching medication usage by ID:", err);
         res.status(500).json({ error: "Internal Server Error." });
     }
 };
