@@ -248,7 +248,7 @@
       }
     },
 
-    "/meds/usage/{date}": {
+    "/meds/usageByDate/{date}": {
       "get": {
         "description": "Retrieve medication usage information for all medications filled on a specific date.",
         "parameters": [

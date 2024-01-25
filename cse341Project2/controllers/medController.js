@@ -8,7 +8,7 @@ const medController = {};
  ******************************************************/
 medController.addMed = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to add a new medication to the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to add a new medication to the database.']
 
   try {
     const {
@@ -50,7 +50,7 @@ medController.addMed = async function (req, res) {
  ******************************************************/
 medController.updateMed = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to update a new medication in the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to update a new medication in the database.']
 
   try {
     const medId = req.params.id;
@@ -108,7 +108,7 @@ medController.updateMed = async function (req, res) {
  ******************************************************/
 medController.deleteMed = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to delete a medication from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to delete a medication from the database.']
 
   try {
     const medId = req.params.id;

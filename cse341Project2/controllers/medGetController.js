@@ -8,7 +8,7 @@ const medGetController = {};
  ********************************************************/
 medGetController.listAllMeds = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to get a list of all medications from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to get a list of all medications from the database.']
   try {
     const meds = await Med.find({});
     return res.json(meds);
@@ -25,7 +25,7 @@ medGetController.listAllMeds = async function (req, res) {
  ********************************************************/
 medGetController.getMedById = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to get a medication by its ID from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to get a medication by its ID from the database.']
   try {
     const param = req.params.id;
     const isObjectId = mongoose.Types.ObjectId.isValid(param);
@@ -59,7 +59,7 @@ medGetController.getMedById = async function (req, res) {
  ********************************************************/
 medGetController.getMedByName = async function (req, res) {
   //swagger.tags = ['Meds']
-  //swagger.description = ['This is to find medications by name from the database.\n The apiKey is 5db70934345e409f96cb070e9495asdkjh54s534s2asd35as15a840ffa']
+  //swagger.description = ['This is to find medications by name from the database.']
   try {
     const paramName = req.params.name;
 
