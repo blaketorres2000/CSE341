@@ -17,7 +17,7 @@ wholesalerController.addWholesaler = async function (req, res) {
     if (existingWholesaler) {
       return res.status(400).json({
         error:
-          "This medication already exists in the collection. It can be deleted or updated.",
+          "This medication already exists in the collection. It can be deleted or updated as needed.",
       });
     }
 
@@ -26,10 +26,10 @@ wholesalerController.addWholesaler = async function (req, res) {
     const savedWholesaler = await newWholesaler.save();
 
     res.status(201).json({
-      message: `Wholesaler pricing for ${medication.medName} added successfully!`,
+      message: `Wholesaler pricing for ${medication.medName} ${medication.medCost} added successfully!`,
     });
   } catch (err) {
-    console.error("Error adding wholesaler:", err);
+    console.error("Error adding wholesaler pricing for that medication:", err);
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
@@ -44,7 +44,7 @@ wholesalerController.getAllWholesalerPricing = async function (req, res) {
     const wholesalers = await Wholesaler.find({});
     return res.json(wholesalers);
   } catch (err) {
-    console.error("Error fetching wholesalers:", err);
+    console.error("Error fetching wholesaler pricing information:", err);
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
@@ -54,7 +54,7 @@ wholesalerController.getAllWholesalerPricing = async function (req, res) {
  ************************************************************************************/
 wholesalerController.updateWholesaler = async function (req, res) {
   try {
-    const medId = req.params.id; // Assuming req.params.id contains the medId
+    const medId = req.params.id;
     const { compName, medCost } = req.body;
 
     const updatedWholesaler = await Wholesaler.findOneAndUpdate(
@@ -62,16 +62,18 @@ wholesalerController.updateWholesaler = async function (req, res) {
       { compName, medCost },
       { new: true }
     );
+    const medication = await Med.findOne({ _id: medId });
+
 
     if (!updatedWholesaler) {
-      return res.status(404).json({ error: "Wholesaler not found." });
+      return res.status(404).json({ error: "Wholesaler pricing info not found for that medication ID." });
     }
 
     res.status(201).json({
-      message: `${updatedWholesaler.compName} updated as a wholesaler successfully!`,
+        message: `Wholesaler pricing for ${medication.medName} ${medication.medCost} updated successfully!`,
     });
   } catch (err) {
-    console.error("Error updating wholesaler:", err);
+    console.error("Error updating wholesaler pricing info for that medication ID:", err);
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
@@ -81,21 +83,22 @@ wholesalerController.updateWholesaler = async function (req, res) {
  ************************************************************************************/
 wholesalerController.deleteWholesaler = async function (req, res) {
   try {
-    const medId = req.params.id; // Assuming req.params.id contains the medId
+    const medId = req.params.id; 
 
     const deletedWholesaler = await Wholesaler.findOneAndDelete({
       medId: medId,
     });
+    const medication = await Med.findOne({ _id: medId });
 
     if (!deletedWholesaler) {
-      return res.status(404).json({ error: "Wholesaler not found." });
+      return res.status(404).json({ error: "Wholesaler pricing info not found for that medication ID." });
     }
 
     res.status(201).json({
-      message: `${deletedWholesaler.compName} deleted as a wholesaler successfully`,
+        message: `Wholesaler pricing for ${medication.medName} ${medication.medCost} deleted successfully!`,
     });
   } catch (err) {
-    console.error("Error deleting wholesaler:", err);
+    console.error("Error deleting wholesaler pricing info for that medication ID:", err);
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
@@ -110,7 +113,7 @@ wholesalerController.getWholesalerPricingByMedId = async function (req, res) {
     const wholesaler = await Wholesaler.findOne({ medId: medId });
 
     if (!wholesaler) {
-      return res.status(404).json({ error: "Wholesaler not found." });
+      return res.status(404).json({ error: "Wholesaler pricing not found for that medication ID." });
     }
 
     return res.json(wholesaler);

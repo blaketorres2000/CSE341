@@ -29,7 +29,7 @@ medUsageController.getMedUsageByDate = async function (req, res) {
 
         return res.json(medsUsedOnDate);
     } catch (err) {
-        console.error("Error fetching meds used on date:", err);
+        console.error("Error fetching meds used on requested date:", err);
         res.status(500).json({ error: "Internal Server Error." });
     }
 };
@@ -41,25 +41,33 @@ medUsageController.getMedUsageById = async function (req, res) {
     //swagger.tags = ['Meds']
     //swagger.description = ['This is to get a list of usage results by id from the medUsage collection.']
     try {
-        const medId = req.params.id;
-
-        if (!mongoose.Types.ObjectId.isValid(medId)) {
-            return res.status(400).json({ error: "Invalid med ID." });
+        const param = req.params.id;
+        const isObjectId = mongoose.Types.ObjectId.isValid(param);
+    
+        if (!isObjectId) {
+          return res
+            .status(400)
+            .json({ error: "Invalid medication ID." });
         }
-
-        const medUsage = await Usage.find({ medId: medId });
-
-        if (!medUsage) {
-            return res.status(404).json({ error: "Medication usage not found." });
+    
+        // If param is a valid Id, search by medId
+        const med = await Usage.findById(param);
+    
+        if (!med) {
+          return res
+            .status(404)
+            .json({ error: "Medication usage not found for requested medication ID." });
         }
-
-        return res.json(medUsage);
-    } catch (err) {
-        console.error("Error fetching medication usage by ID:", err);
-        res.status(500).json({ error: "Internal Server Error." });
-    }
-};
-
+    
+        return res.json(med);
+      } catch (err) {
+        console.error("Error fetching medication usage for requested medication ID:", err);
+        res
+          .status(500)
+          .json({ error: "Internal Server Error." });
+      }
+    };
+    
 /************************************************************************************
  * Function to log usage of a med by id
  ***********************************************************************************/
