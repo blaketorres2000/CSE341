@@ -11,7 +11,7 @@ router.post('/:id', isAuthenticated, validate('logUsage'), handleValidationError
 router.get('/byDate/:date', validate('getUsage'), handleValidationErrors, medUsageController.getMedUsageByDate);
 
 // GET med usage by id from the database's medUsage collection
-router.get('byId/:id', validate('getUsageById'), handleValidationErrors, medUsageController.getMedUsageById);
+router.get('/byId/:id', validate('getUsageById'), handleValidationErrors, medUsageController.getMedUsageById);
 
 // Update med usage by id and date in the database's medUsage collection
 router.put('/:id/:date', isAuthenticated, validate('logUsage'), handleValidationErrors, medUsageController.updateMedUsage);
