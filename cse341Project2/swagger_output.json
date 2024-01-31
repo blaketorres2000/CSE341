@@ -4,9 +4,9 @@
     "title": "CSE341Project2 Node.js",
     "description": "CSE341 Project 2: Medication Inventory System REST API.\n This Node.js project, developed as part of the CSE341 course Project 2 assignment, presents a comprehensive REST API for a medication inventory system.\n The system is designed to facilitate seamless management of medications, allowing users to perform a range of operations"
   },
-  "host": "localhost:5600",
+  "host": "cse341project2-00el.onrender.com",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": ["https"],
   "paths": {
     "/meds/": {
       "get": {
