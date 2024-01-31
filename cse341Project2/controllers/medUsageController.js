@@ -134,29 +134,11 @@ medUsageController.logUsage = async function (req, res) {
  ***********************************************************************************/
 medUsageController.updateMedUsage = async function (req, res) {
   try {
-    const { medId, medUsedDate } = req.params;
+    const { id } = req.params; // Assuming id is the _id of the medUsage entry
     const { medUnitsUsed } = req.body;
 
-    // // Validate that medId is a valid ObjectId
-    // if (!mongoose.Types.ObjectId.isValid(medId)) {
-    //   return res.status(400).json({ error: "Invalid med ID." });
-    // }
-
-    // // Validate that usageDate is a valid Date
-    // if (!medUsedDate) {
-    //   return res
-    //     .status(400)
-    //     .json({ error: "Usage date is required using date format YYYY-MM-DD" });
-    // }
-
-    console.log('medId:', medId);
-    console.log('medUsedDate:', medUsedDate);
-    
-    // Find the medUsage entry
-    const medUsage = await Usage.findOne({
-      medId: medId,
-      medUsedDate: medUsedDate,
-    });
+    // Find the medUsage entry by its _id
+    const medUsage = await Usage.findById(id);
 
     console.log("Found Med Usage:", medUsage);
 
@@ -171,11 +153,11 @@ medUsageController.updateMedUsage = async function (req, res) {
     const newInventory = medUsage.medEndingInventory + unitsUsedDifference;
 
     // Update the inventory in the medList collection
-    await Med.findByIdAndUpdate(medId, { medInventory: newInventory });
+    await Med.findByIdAndUpdate(medUsage.medId, { medInventory: newInventory });
 
     // Update the medUsage entry
-    const updatedMedUsage = await Usage.findOneAndUpdate(
-      { medId: medId, medUsedDate: medUsedDate },
+    const updatedMedUsage = await Usage.findByIdAndUpdate(
+      id,
       { medUnitsUsed, medEndingInventory: newInventory },
       { new: true }
     );
