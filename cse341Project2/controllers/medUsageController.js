@@ -149,8 +149,9 @@ medUsageController.updateMedUsage = async function (req, res) {
     //     .json({ error: "Usage date is required using date format YYYY-MM-DD" });
     // }
 
-    console.log("Query Parameters:", { medId, medUsedDate });
-
+    console.log('medId:', medId);
+    console.log('medUsedDate:', medUsedDate);
+    
     // Find the medUsage entry
     const medUsage = await Usage.findOne({
       medId: medId,
