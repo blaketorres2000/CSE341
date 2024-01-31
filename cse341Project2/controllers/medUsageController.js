@@ -203,7 +203,7 @@ medUsageController.deleteMedUsage = async function (req, res) {
 
     // Continue with the rest of the logic for a successful deletion...
     return res.status(201).json({
-      success: `Medication usage for ${med.medName} ${med.medStrength} deleted successfully.`,
+      success: `Medication usage for ${medUsage.medName} ${medUsage.medStrength} deleted successfully.`,
     });
   } catch (err) {
     console.error("Error deleting med usage:", err);
