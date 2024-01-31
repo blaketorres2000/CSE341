@@ -137,16 +137,17 @@ medUsageController.updateMedUsage = async function (req, res) {
     const { medId, medUsedDate } = req.params;
     const { medUnitsUsed } = req.body;
 
-    // Validate that medId is a valid ObjectId
-    if (!medId || !mongoose.Types.ObjectId.isValid(medId)) {
-      return res.status(400).json({ error: "Invalid med ID." });
-    }
-    // Validate that usageDate is a valid Date
-    if (!medUsedDate) {
-      return res
-        .status(400)
-        .json({ error: "Usage date is required using date format YYYY-MM-DD" });
-    }
+    // // Validate that medId is a valid ObjectId
+    // if (!mongoose.Types.ObjectId.isValid(medId)) {
+    //   return res.status(400).json({ error: "Invalid med ID." });
+    // }
+
+    // // Validate that usageDate is a valid Date
+    // if (!medUsedDate) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "Usage date is required using date format YYYY-MM-DD" });
+    // }
 
     // Find the medUsage entry
     const medUsage = await Usage.findOne({
