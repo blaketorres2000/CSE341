@@ -147,10 +147,10 @@ medUsageController.updateMedUsage = async function (req, res) {
     }
 
     // Calculate the difference in medUnitsUsed
-    const unitsUsedDifference = medUnitsUsed - medUsage.medUnitsUsed;
+    const unitsUsedDifference = medUnitsUsed + medUsage.medUnitsUsed;
 
     // Calculate the new inventory after usage
-    const newInventory = medUsage.medEndingInventory + unitsUsedDifference;
+    const newInventory = medUsage.medEndingInventory - unitsUsedDifference;
 
     // Update the inventory in the medList collection
     await Med.findByIdAndUpdate(medUsage.medId, { medInventory: newInventory });
