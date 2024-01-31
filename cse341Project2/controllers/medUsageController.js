@@ -135,7 +135,7 @@ medUsageController.updateMedUsage = async function (req, res) {
         const { medUnitsUsed } = req.body;
 
         // Validate that medId is a valid ObjectId
-        if (!medId) {
+        if (!mongoose.Types.ObjectId.isValid(medId)) {
             return res.status(400).json({ error: "Invalid med ID." });
         }
 
