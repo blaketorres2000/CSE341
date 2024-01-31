@@ -319,9 +319,6 @@
               "properties": {
                 "medUnitsUsed": {
                   "example": "any number"
-                },
-                "medUsedDate": {
-                  "example": "any date"
                 }
               }
             }

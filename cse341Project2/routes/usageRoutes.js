@@ -14,7 +14,7 @@ router.get('/byDate/:date', validate('getUsage'), handleValidationErrors, medUsa
 router.get('/byId/:id', validate('getUsageById'), handleValidationErrors, medUsageController.getMedUsageById);
 
 // Update med usage by id and date in the database's medUsage collection
-router.put('/:id/:date', isAuthenticated, validate('logUsage'), handleValidationErrors, medUsageController.updateMedUsage);
+router.put('/:id/:date', isAuthenticated, validate('updateUsage'), handleValidationErrors, medUsageController.updateMedUsage);
 
 // DELETE med usage by id and date from the database's medUsage collection
 router.delete('/:id/:date', isAuthenticated, validate('deleteUsage'), handleValidationErrors, medUsageController.deleteMedUsage);

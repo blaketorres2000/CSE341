@@ -84,6 +84,19 @@ const validate = (method) => {
           ),
       ];
 
+    // Validation to log the usage of a medication in the medUsage collection
+    case "updateUsage":
+      return [
+        (req, res, next) => {
+          next();
+        },
+        param("id").isMongoId().withMessage("Invalid medication ID"),
+        body("medUnitsUsed")
+          .notEmpty()
+          .isNumeric()
+          .withMessage("Medication units used is required"),
+      ];
+
     // Validation to get meds used on a certain date from the medUsage collection
     case "getUsage":
       return [
