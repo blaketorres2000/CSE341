@@ -41,17 +41,16 @@ medUsageController.getMedUsageById = async function (req, res) {
     //swagger.tags = ['Meds']
     //swagger.description = ['This is to get a list of usage results by id from the medUsage collection.']
     try {
-        const param = req.params.id;
-        const isObjectId = mongoose.Types.ObjectId.isValid(param);
+        const idParam = req.params.id;
     
-        if (!isObjectId) {
+        if (!idParam) {
           return res
             .status(400)
             .json({ error: "Invalid medication ID." });
         }
     
         // If param is a valid Id, search by medId
-        const med = await Usage.findById(param);
+        const med = await Usage.find({ medId: { idParam } });
     
         if (!med) {
           return res
