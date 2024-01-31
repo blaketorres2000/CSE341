@@ -1,5 +1,5 @@
 const { body, param, validationResult } = require("express-validator");
-const moment = require('moment');
+const moment = require("moment");
 
 const validate = (method) => {
   switch (method) {
@@ -9,7 +9,9 @@ const validate = (method) => {
 
     // Validation to get a medication by its ID number from the medlist collection
     case "getMedByName":
-      return [param("name").notEmpty().withMessage("Must provide a medication name")];
+      return [
+        param("name").notEmpty().withMessage("Must provide a medication name"),
+      ];
 
     // Validation to add a medication to the medList collection
     case "addMed":
@@ -59,45 +61,81 @@ const validate = (method) => {
           .isNumeric()
           .withMessage("Medication minimum threshold is required"),
       ];
-    
+
     // Validation to delete a medication from the medList collection
     case "deleteMed":
       return [param("id").isMongoId().withMessage("Invalid medication ID")];
 
     // Validation to log the usage of a medication in the medUsage collection
     case "logUsage":
-        return [
-          (req, res, next) => {
-            next();
-          },
-          param("id").isMongoId().withMessage("Invalid medication ID"),
-          body("medUnitsUsed")
-            .notEmpty()
-            .isNumeric()
-            .withMessage("Medication units used is required"),
-          body("medUsedDate")
-            .notEmpty()
-            .withMessage("Medication usage date is required in this format: YYYY-MM-DD"),
-        ];
+      return [
+        (req, res, next) => {
+          next();
+        },
+        param("id").isMongoId().withMessage("Invalid medication ID"),
+        body("medUnitsUsed")
+          .notEmpty()
+          .isNumeric()
+          .withMessage("Medication units used is required"),
+        body("medUsedDate")
+          .notEmpty()
+          .withMessage(
+            "Medication usage date is required in this format: YYYY-MM-DD"
+          ),
+      ];
 
     // Validation to get meds used on a certain date from the medUsage collection
     case "getUsage":
-        return [
-            param("date").custom(value => {
-                if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
-                    throw new Error('Invalid date format. Use YYYY-MM-DD.');
-                }
-                return true;
-            })
-        ];
-    
+      return [
+        param("date").custom((value) => {
+          if (!moment(value, "YYYY-MM-DD", true).isValid()) {
+            throw new Error("Invalid date format. Use YYYY-MM-DD.");
+          }
+          return true;
+        }),
+      ];
+
+    // Validation to get usage of a medication by its ID number from the medUsage collection
+    case "getUsageById":
+      return [param("id").isMongoId().withMessage("Invalid medication ID")];
+
+    // Validation to update a user's profile
+    case "updateProfile":
+      return [
+        body("displayName").notEmpty().withMessage("Display name is required"),
+      ];
+
+    // Validation to add a wholesaler to the database
+    case "addWholesaler":
+      return [
+        body("compName").notEmpty().withMessage("Wholesaler name is required"),
+        body("medId")
+          .notEmpty()
+          .isMongoId()
+          .withMessage("Invalid medication ID"),
+        body("medCost")
+          .notEmpty()
+          .isNumeric()
+          .withMessage("Medication cost is required"),
+      ];
+
+    // Validation to update a wholesaler in the database
+    case "updateWholesaler":
+      return [
+        param("id").isMongoId().withMessage("Invalid wholesaler ID"),
+        body("compName").notEmpty().withMessage("Wholesaler name is required"),
+        body("medCost")
+          .notEmpty()
+          .isNumeric()
+          .withMessage("Medication cost is required"),
+      ];
+
+    // Validation to delete a wholesaler from the database
+    case "deleteWholesaler":
+      return [param("id").isMongoId().withMessage("Invalid wholesaler ID")];
+
     default:
       return [];
-
-  // Validation to get usage of a medication by its ID number from the medUsage collection
-  case "getUsageById":
-    return [param("id").isMongoId().withMessage("Invalid medication ID")];
-
   }
 };
 
