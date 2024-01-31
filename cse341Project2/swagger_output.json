@@ -306,12 +306,6 @@
             "type": "string"
           },
           {
-            "name": "date",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -319,6 +313,9 @@
               "properties": {
                 "medUnitsUsed": {
                   "example": "any number"
+                },
+                "medUsedDate": {
+                  "example": "YYYY-MM-DD"
                 }
               }
             }
