@@ -50,7 +50,7 @@ medUsageController.getMedUsageById = async function (req, res) {
         }
     
         // If param is a valid Id, search by medId
-        const med = await Usage.find({ medId: { idParam } });
+        const med = await Usage.find({ medId: idParam });
     
         if (!med) {
           return res
