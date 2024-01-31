@@ -1,4 +1,4 @@
-const { Wholesaler } = require("../models/");
+const { Wholesaler, Med } = require("../models/");
 const mongoose = require("mongoose");
 
 const wholesalerController = {};
@@ -12,6 +12,7 @@ wholesalerController.addWholesaler = async function (req, res) {
 
     // Check if the medId already exists in the collection
     const existingWholesaler = await Wholesaler.findOne({ medId });
+    const medication = await Med.findOne({ _id: medId });
 
     if (existingWholesaler) {
       return res.status(400).json({
@@ -25,7 +26,7 @@ wholesalerController.addWholesaler = async function (req, res) {
     const savedWholesaler = await newWholesaler.save();
 
     res.status(201).json({
-      message: `Wholesaler pricing added for ${savedWholesaler.medId} successfully!`,
+      message: `Wholesaler pricing for ${medication.medName} added successfully!`,
     });
   } catch (err) {
     console.error("Error adding wholesaler:", err);
