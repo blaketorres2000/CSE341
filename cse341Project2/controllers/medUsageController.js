@@ -134,13 +134,11 @@ medUsageController.logUsage = async function (req, res) {
  ***********************************************************************************/
 medUsageController.updateMedUsage = async function (req, res) {
   try {
-    const { id } = req.params; // Assuming id is the _id of the medUsage entry
+    const { id } = req.params; 
     const { medUnitsUsed } = req.body;
 
     // Find the medUsage entry by its _id
     const medUsage = await Usage.findById(id);
-
-    console.log("Found Med Usage:", medUsage);
 
     if (!medUsage) {
       return res.status(404).json({ error: "Medication usage not found." });
@@ -185,44 +183,23 @@ medUsageController.updateMedUsage = async function (req, res) {
  ***********************************************************************************/
 medUsageController.deleteMedUsage = async function (req, res) {
   try {
-    const { medUsageId } = req.params;
-
-    // Validate that medUsageId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(medUsageId)) {
-      return res.status(400).json({ error: "Invalid medUsage ID." });
-    }
+    const { id } = req.params;
 
     // Fetch the medUsage entry from the database
-    const deletedMedUsage = await Usage.findByIdAndDelete(medUsageId);
+    const medUsage = await Usage.findById(id);
 
-    if (!deletedMedUsage) {
+    if (!medUsage) {
       return res.status(404).json({ error: "Medication usage not found." });
     }
 
-    // Fetch the medication information from the medList collection
-    const med = await Med.findById(deletedMedUsage.medId);
-
-    if (!med) {
-      return res
-        .status(404)
-        .json({ error: "Medication not found in medList collection." });
-    }
-
-    // Calculate the new inventory after deleting the usage entry
-    const newInventory = med.medInventory + deletedMedUsage.medUnitsUsed;
+    // Calculate the difference in medUnitsUsed
+    const newInventory = medUsage.medUnitsUsed + medUsage.medEndingInventory;
 
     // Update the inventory in the medList collection
-    await Med.findByIdAndUpdate(deletedMedUsage.medId, {
-      medInventory: newInventory,
-    });
+    await Med.findByIdAndUpdate(medUsage.medId, { medInventory: newInventory });
 
-    // Check if the inventory is below the threshold and include a warning in the response
-    if (newInventory < med.medThreshold) {
-      return res.status(200).json({
-        warning: "Medication inventory below threshold. Refill required.",
-        success: `Medication usage for ${med.medName} deleted successfully.`,
-      });
-    }
+    // Delete the medUsage entry
+    await Usage.findByIdAndDelete(id);
 
     // Continue with the rest of the logic for a successful deletion...
     return res.status(201).json({
