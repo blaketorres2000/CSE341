@@ -130,7 +130,7 @@ medUsageController.logUsage = async function (req, res) {
 };
 
 /************************************************************************************
- * Function to update med usage by medId and usageDate in the database
+ * Function to update med usage by object _id in the database
  ***********************************************************************************/
 medUsageController.updateMedUsage = async function (req, res) {
   try {
@@ -181,26 +181,26 @@ medUsageController.updateMedUsage = async function (req, res) {
 };
 
 /************************************************************************************
- * Function to delete med usage by medId and usageDate in the database
+ * Function to delete med usage by object _id in the database
  ***********************************************************************************/
 medUsageController.deleteMedUsage = async function (req, res) {
   try {
-    const { medId, usageDate } = req.params;
+    const { medUsageId } = req.params;
 
-    // Validate that medId is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(medId)) {
-      return res.status(400).json({ error: "Invalid med ID." });
+    // Validate that medUsageId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(medUsageId)) {
+      return res.status(400).json({ error: "Invalid medUsage ID." });
     }
 
-    // Validate that usageDate is a valid Date
-    if (!usageDate) {
-      return res
-        .status(400)
-        .json({ error: "Usage date is required using date format YYYY-MM-DD" });
+    // Fetch the medUsage entry from the database
+    const deletedMedUsage = await Usage.findByIdAndDelete(medUsageId);
+
+    if (!deletedMedUsage) {
+      return res.status(404).json({ error: "Medication usage not found." });
     }
 
     // Fetch the medication information from the medList collection
-    const med = await Med.findById(medId);
+    const med = await Med.findById(deletedMedUsage.medId);
 
     if (!med) {
       return res
@@ -208,21 +208,13 @@ medUsageController.deleteMedUsage = async function (req, res) {
         .json({ error: "Medication not found in medList collection." });
     }
 
-    // Delete the medUsage entry
-    const deletedMedUsage = await Usage.findOneAndDelete({
-      medId: medId,
-      medUsedDate: usageDate,
-    });
-
-    if (!deletedMedUsage) {
-      return res.status(404).json({ error: "Medication usage not found." });
-    }
-
     // Calculate the new inventory after deleting the usage entry
     const newInventory = med.medInventory + deletedMedUsage.medUnitsUsed;
 
     // Update the inventory in the medList collection
-    await Med.findByIdAndUpdate(medId, { medInventory: newInventory });
+    await Med.findByIdAndUpdate(deletedMedUsage.medId, {
+      medInventory: newInventory,
+    });
 
     // Check if the inventory is below the threshold and include a warning in the response
     if (newInventory < med.medThreshold) {

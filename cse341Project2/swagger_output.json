@@ -198,50 +198,6 @@
       }
     },
 
-    "/usage/{id}": {
-      "post": {
-        "tags": ["Medication Usage"],
-        "description": "Log medication usage using the medication's ID. This will also update the medication's inventory in both collections.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "medUnitsUsed": {
-                  "example": "any number"
-                },
-                "medUsedDate": {
-                  "example": "any date"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-
     "/usage/byDate/{date}": {
       "get": {
         "tags": ["Medication Usage"],
@@ -294,10 +250,10 @@
       }
     },
 
-    "/usage/{id}/{date}": {
-      "put": {
+    "/usage/{id}": {
+      "post": {
         "tags": ["Medication Usage"],
-        "description": "Update medication usage using the medication's ID and Date. This will update the medication's inventory in both collections.",
+        "description": "Log medication usage using the medication's ID. This will also update the medication's inventory in both collections.",
         "parameters": [
           {
             "name": "id",
@@ -315,7 +271,7 @@
                   "example": "any number"
                 },
                 "medUsedDate": {
-                  "example": "YYYY-MM-DD"
+                  "example": "any date"
                 }
               }
             }
@@ -335,31 +291,74 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "delete": {
-        "tags": ["Medication Usage"],
-        "description": "Delete a medication usage by ID and Date. This will update the medication's inventory in both collections.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+      }
+    },
+
+    "put": {
+      "tags": ["Medication Usage"],
+      "description": "Update a medication usage by object _id. This will also update the inventory in the medList collection.",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "medUnitsUsed": {
+                "example": "any number"
+              },
+              "medUsedDate": {
+                "example": "YYYY-MM-DD"
+              }
+            }
           }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "500": {
+          "description": "Internal Server Error"
+        }
+      }
+    },
+
+    "delete": {
+      "tags": ["Medication Usage"],
+      "description": "Delete a medication usage by object _id. This will also update the inventory in the medList collection.",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "404": {
+          "description": "Not Found"
+        },
+        "500": {
+          "description": "Internal Server Error"
         }
       }
     },
