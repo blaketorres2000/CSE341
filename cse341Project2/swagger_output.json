@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "CSE341Project2 Node.js",
-    "description": "CSE341 Project 2: Medication Inventory System REST API.\n This Node.js project, developed as part of the CSE341 course Project 2 assignment, presents a comprehensive REST API for a medication inventory system.\n The system is designed to facilitate seamless management of medications, allowing users to perform a range of operations"
+    "description": "CSE341 Project 2: Medication Inventory System REST API.\n This is a Node.js project, developed as part of the CSE341 course Project 2 assignment.\n This API serves as a comprehensive medication management system, featuring routes for medication, wholesaler, user profile, and medication usage management. The / route displays the user's login status and details, utilizing GitHub authentication. Notably, it supports logging in, logging out, and GitHub authentication callbacks. The /meds and /wholesalers subroutes facilitate CRUD operations for managing medications and wholesalers, respectively. The /profile subroute handles user profiles, allowing the fetching of all profiles and updating existing ones. Moreover, the /usage subroute focuses on medication usage, supporting operations such as fetching usage by date or ID, logging usage, updating usage, and deleting usage records. The controllers play a vital role in these operations, with medController managing CRUD operations for medications, medGetController handling medication information retrieval, medUsageController overseeing medication usage, and profileController managing user profiles. The wholesalerController specifically handles wholesaler pricing information, offering functionality to add, update, delete, and fetch pricing data."
   },
   "host": "cse341project2-00el.onrender.com",
   "basePath": "/",
@@ -11,7 +11,7 @@
     "/meds/": {
       "get": {
         "tags": ["Medication Management"],
-        "description": "Retrieve all medications from the database. This will not retrieve medication usage logs for the medications, only a list of medications with their details.",
+        "description": "Retrieve all medications from the database. This will give a list of all medications in the database with their details.",
         "responses": {
           "200": {
             "description": "OK"
@@ -26,7 +26,7 @@
       },
       "post": {
         "tags": ["Medication Management"],
-        "description": "Add a new medication to the database. All feilds are required.",
+        "description": "Add a new medication to the database. This will add the medication to the medList. All feilds are required.",
         "parameters": [
           {
             "name": "body",
@@ -73,7 +73,7 @@
     "/meds/{id}": {
       "get": {
         "tags": ["Medication Management"],
-        "description": "Retrieve information for a single medication by ID. This will not retrieve medication usage logs for the medication, only the medication's details.",
+        "description": "Retrieve information for a single medication by the object _id(the id created by MongoDB). This will retrieve the medication's details. Such as: name, strength, unit, class, inventory, and threshold.",
         "parameters": [
           {
             "name": "id",
@@ -90,7 +90,7 @@
       },
       "put": {
         "tags": ["Medication Management"],
-        "description": "Update information for a single medication by ID. All fields are required.",
+        "description": "Update information for a single medication by its object _id(the id created by MongoDB). Like adding a new medication to the database, all fields are required.",
         "parameters": [
           {
             "name": "id",
@@ -143,7 +143,7 @@
       },
       "delete": {
         "tags": ["Medication Management"],
-        "description": "Delete a medication by ID. This will not delete medication usage logs for the medication.",
+        "description": "Delete a medication by its object _id(the id created by MongoDB). This will not delete medication usage logs for the medication, only the medication and details from the medList collection.",
         "parameters": [
           {
             "name": "id",
@@ -172,7 +172,7 @@
     "/meds/name/{name}": {
       "get": {
         "tags": ["Medication Management"],
-        "description": "Retrieve medication information by name for all meds matching the search. This will allow the user to search for a medication by partial or full spelling of the name.",
+        "description": "Retrieve medication information by name. This will allow the user to search for a medication by partial or full spelling of the name. It will return all medications that match the search criteria. The search is case insensitive. The more detailed the search, the more accurate the results will be.",
         "parameters": [
           {
             "name": "name",
@@ -227,7 +227,7 @@
     "/usage/byId/{id}": {
       "get": {
         "tags": ["Medication Usage"],
-        "description": "Retrieve medication usage information for a specific medication by ID. This will retrieve all usage logs for the medication.",
+        "description": "Retrieve medication usage information for a specific medication by the medId(not the object _id created by MongoDB). This will retrieve all usage logs for the medication.",
         "parameters": [
           {
             "name": "id",
@@ -253,7 +253,7 @@
     "/usage/{id}": {
       "post": {
         "tags": ["Medication Usage"],
-        "description": "Log medication usage using the medication's ID. This will also update the medication's inventory in both collections.",
+        "description": "Log medication usage using the medication's medId(not the object _id created by MongoDB). This will also update the medication's inventory in the medList collection.",
         "parameters": [
           {
             "name": "id",
@@ -295,7 +295,7 @@
 
       "put": {
         "tags": ["Medication Usage"],
-        "description": "Update a medication usage by object _id. This will also update the inventory in the medList collection.",
+        "description": "Update a medication usage by object _id(the object _id created by MongoDB in the medUsage collection). This will also update the inventory in the medList collection.",
         "parameters": [
           {
             "name": "id",
@@ -337,7 +337,7 @@
 
       "delete": {
         "tags": ["Medication Usage"],
-        "description": "Delete a medication usage by object _id. This will also update the inventory in the medList collection.",
+        "description": "Delete a medication usage by object _id(the object _id created by MongoDB in the medUsage collection). This will also update the inventory in the medList collection.",
         "parameters": [
           {
             "name": "id",
@@ -382,7 +382,7 @@
 
       "put": {
         "tags": ["Profile Management"],
-        "description": "Update a user profile by ID. The ID cannot be altered. The Display Name is the only required field, but the email field can be updated also.",
+        "description": "Update a user profile by ID. The ID cannot be altered. The Display Name is the only required field, but the email field can be updated if needed.",
         "parameters": [
           {
             "name": "id",
@@ -426,7 +426,7 @@
     "/wholesalers/": {
       "get": {
         "tags": ["Wholesaler Management"],
-        "description": "Retrieve all wholesalers from the database. This will retrieve pricing info for all medications that are listed in the wholesalers collection.",
+        "description": "Retrieve all wholesalers pricing info from the database. This will retrieve pricing info for all medications that are listed in the wholesalers collection.",
         "responses": {
           "200": {
             "description": "OK"
@@ -442,7 +442,7 @@
 
       "post": {
         "tags": ["Wholesaler Management"],
-        "description": "Add a wholesaler's pricing for a medication by the medId to the database. All fields are required.",
+        "description": "Add a wholesaler's pricing for a medication by the medId(not the object _id created by MongoDB) to the database. All fields are required.",
         "parameters": [
           {
             "name": "body",
@@ -480,7 +480,7 @@
     "/wholesalers/{id}": {
       "put": {
         "tags": ["Wholesaler Management"],
-        "description": "Update a medication's pricing and wholesaler info by the medId.",
+        "description": "Update a medication's pricing and wholesaler info by the medId(not the object _id created by MongoDB).",
         "parameters": [
           {
             "name": "id",
@@ -522,7 +522,7 @@
 
       "delete": {
         "tags": ["Wholesaler Management"],
-        "description": "Delete a medication pricing info by ID. This will not delete medication usage logs or med info from the other collections for the medication.",
+        "description": "Delete a medication pricing info by medId(not the object _id created by MongoDB). This will not delete medication usage logs or med info from the other collections for the medication.",
         "parameters": [
           {
             "name": "id",
@@ -549,7 +549,7 @@
 
       "get": {
         "tags": ["Wholesaler Management"],
-        "description": "Retrieve medication pricing information for a specific medication by ID from the wholesalers collection.",
+        "description": "Retrieve wholesaler medication pricing information for a specific medication by medId(not the object _id created by MongoDB) from the wholesalers collection.",
         "parameters": [
           {
             "name": "id",
