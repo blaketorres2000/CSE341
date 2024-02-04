@@ -10,6 +10,19 @@ const { User } = require("../models");
 const wholesalerRoutes = require("./wholesalerRoutes");
 const usageRoutes = require("./usageRoutes");
 
+// Login with GitHub
+router.get("/login", passport.authenticate("github"), (req, res) => {});
+
+// Logout
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 // Route to serve home message
 router.get("/", async (req, res) => {
     try {
@@ -46,24 +59,11 @@ router.get(
   }
 );
 
-// Logout
-router.get("/logout", (req, res, next) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
-
 // Route to allow med routes to be served from /meds
 router.use("/meds", medRoutes);
 
 // Route to allow wholesaler routes to be served from /wholesalers
 router.use("/wholesalers", wholesalerRoutes);
-
-// Login with GitHub
-router.get("/login", passport.authenticate("github"), (req, res) => {});
 
 // Route to serve user profile
 router.use("/profile", isAuthenticated, require("./profileRoutes"));
